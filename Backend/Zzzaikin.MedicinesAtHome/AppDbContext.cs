@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using BC = BCrypt.Net.BCrypt;
 using Zzzaikin.MedicinesAtHome.Models;
 
 namespace Zzzaikin.MedicinesAtHome
@@ -9,6 +10,8 @@ namespace Zzzaikin.MedicinesAtHome
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<MedicinesInUsers> MedicinesInUsers { get; set; }
+
         public AppDbContext() 
         {
             Database.EnsureCreated();
@@ -16,12 +19,23 @@ namespace Zzzaikin.MedicinesAtHome
 
         protected override void OnModelCreating(ModelBuilder builder) 
         {
-            SetDemoData(builder);
+            InitSupervisorUser(builder);
         }
 
-        private void SetDemoData(ModelBuilder builder) 
+        private void InitSupervisorUser(ModelBuilder builder) 
         {
-            
+            var supervisorId = Guid.NewGuid();
+
+            builder.Entity<User>()
+                .HasData(
+                    new User 
+                    {
+                        Id = supervisorId,
+                        Name = "Supervisor",
+                        CreatedOn = DateTime.Now,
+                        CreatedBy = supervisorId,
+                        Password = BC.HashPassword("Supervisor"),
+                    });
         }
     }
 }
