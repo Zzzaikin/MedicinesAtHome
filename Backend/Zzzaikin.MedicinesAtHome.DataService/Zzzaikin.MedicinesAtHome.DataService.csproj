@@ -13,4 +13,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Zzzaikin.MedicinesAtHome.Models\Zzzaikin.MedicinesAtHome.Models.csproj" />
+    <ProjectReference Include="..\Zzzaikin.MedicinesAtHome.Integration\Zzzaikin.MedicinesAtHome.Integration.csproj" />
+  </ItemGroup>
+
 </Project>

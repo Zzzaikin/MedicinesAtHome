@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using BC = BCrypt.Net.BCrypt;
 using Zzzaikin.MedicinesAtHome.Models;
 
-namespace Zzzaikin.MedicinesAtHome
+namespace Zzzaikin.MedicinesAtHome.DataService
 {
     public class AppDbContext : DbContext
     {

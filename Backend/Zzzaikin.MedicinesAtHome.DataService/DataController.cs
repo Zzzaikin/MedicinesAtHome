@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Zzzaikin.MedicinesAtHome
+namespace Zzzaikin.MedicinesAtHome.DataService
 {
     [ApiController]
     [Route("[controller]")]
