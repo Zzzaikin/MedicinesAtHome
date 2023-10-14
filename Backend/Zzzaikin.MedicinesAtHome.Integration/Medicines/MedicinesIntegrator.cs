@@ -1,23 +1,32 @@
 using Zzzaikin.MedicinesAtHome.Models;
 using ZzzArgument = Zzzaikin.Argument.Argument;
 using Zzzaikin.MedicinesAtHome.Integration.Medicines;
+using Zzzaikin.MedicinesAtHome.Integration.Medicines.Configuration;
 
 namespace Zzzaikin.MedicinesAtHome.Integration
 {
     public class MedicinesIntegrator : IMedicinesIntegrator
     {
-        private readonly IMedicinesIntegrationParser _medicinesIntegrationParser;
+        private readonly IMedicinesIntegrationSource _medicinesIntegrationSource;
 
-        public MedicinesIntegrator(IMedicinesIntegrationParser medicinesIntegrationParser) 
+        private readonly MedicinesIntegrationConfiguration _medicinesIntegrationConfiguration;
+
+        public MedicinesIntegrator(IMedicinesIntegrationSource medicinesIntegrationSource, 
+            MedicinesIntegrationConfiguration medicinesIntegrationConfiguration) 
         {
-            ZzzArgument.NotNull(medicinesIntegrationParser, nameof(medicinesIntegrationParser));
-            _medicinesIntegrationParser = medicinesIntegrationParser;
+            ZzzArgument.NotNull(medicinesIntegrationSource, nameof(medicinesIntegrationSource));
+            ZzzArgument.NotNull(medicinesIntegrationConfiguration, nameof(medicinesIntegrationConfiguration));
+
+            _medicinesIntegrationSource = medicinesIntegrationSource;
+            _medicinesIntegrationConfiguration = medicinesIntegrationConfiguration;
         }
 
         public Task<IEnumerable<Medicine>> GetMedicinesTask()
         {
-            var medicinesNames =  _medicinesIntegrationParser.GetMedicinesNamesTask();
-            return _medicinesIntegrationParser.GetMedicinesFullInfoTask(medicinesNames);
+            return 
+                _medicinesIntegrationSource
+                    .GetMedicinesTask(_medicinesIntegrationConfiguration.MedicinesNamesAndLinksSourceUrl,
+                        _medicinesIntegrationConfiguration.PathToMedicinesNamesAndLinksNodes);
         }
     }
 }

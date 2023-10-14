@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Zzzaikin.MedicinesAtHome.Integration;
 using Zzzaikin.MedicinesAtHome.Integration.Medicines;
+using Zzzaikin.MedicinesAtHome.Integration.Medicines.Configuration;
 
 namespace Zzzaikin.MedicinesAtHome.DataService
 {
@@ -23,12 +24,22 @@ namespace Zzzaikin.MedicinesAtHome.DataService
                 options.UseNpgsql(dbConnectionString);
             });
 
-            services.AddSingleton<IMedicinesIntegrationParser, PharmacyMedsiParser>();
+            services.AddSingleton<IMedicinesIntegrationSource, PharmacyMedsiParser>();
             
             services.AddSingleton<IMedicinesIntegrator, MedicinesIntegrator>(serviceProvider => 
             {
-                var intagrationParser = serviceProvider.GetRequiredService<IMedicinesIntegrationParser>();
-                return new MedicinesIntegrator(intagrationParser);
+                var intagrationParser = serviceProvider.GetRequiredService<IMedicinesIntegrationSource>();
+
+                var pharmacyMedsiParserConfigurationSection = 
+                    builder.Configuration.GetSection("PharmacyMedsiParserConfiguration");
+
+                var medicinesIntegrationConfiguration = new MedicinesIntegrationConfiguration
+                (
+                    pharmacyMedsiParserConfigurationSection.GetValue<string>("MedicinesNamesAndLinksSourceUrl"),
+                    pharmacyMedsiParserConfigurationSection.GetValue<string>("PathToMedicinesNamesAndLinksNodes")
+                );
+
+                return new MedicinesIntegrator(intagrationParser, medicinesIntegrationConfiguration);
             });
 
             var app = builder.Build();
