@@ -1,4 +1,4 @@
-﻿using ZzzArgument = Zzzaikin.Argument.Argument;
+﻿using Zzzaikin.Common;
 
 namespace Zzzaikin.MedicinesAtHome.Integration.Medicines.Configuration;
 
@@ -11,8 +11,8 @@ public class MedicinesIntegrationConfiguration
     public MedicinesIntegrationConfiguration(string medicinesNamesAndLinksSourceUrl, 
         string pathToMedicinesNamesAndLinksNodes)
     {
-        ZzzArgument.NotNullOrEmpty(medicinesNamesAndLinksSourceUrl, nameof(medicinesNamesAndLinksSourceUrl));
-        ZzzArgument.NotNullOrEmpty(pathToMedicinesNamesAndLinksNodes, nameof(pathToMedicinesNamesAndLinksNodes));
+        Argument.NotNullOrEmpty(medicinesNamesAndLinksSourceUrl, nameof(medicinesNamesAndLinksSourceUrl));
+        Argument.NotNullOrEmpty(pathToMedicinesNamesAndLinksNodes, nameof(pathToMedicinesNamesAndLinksNodes));
 
         MedicinesNamesAndLinksSourceUrl = medicinesNamesAndLinksSourceUrl;
         PathToMedicinesNamesAndLinksNodes = pathToMedicinesNamesAndLinksNodes;

@@ -1,5 +1,5 @@
+using Zzzaikin.Common;
 using Zzzaikin.MedicinesAtHome.Models;
-using ZzzArgument = Zzzaikin.Argument.Argument;
 using Zzzaikin.MedicinesAtHome.Integration.Medicines;
 using Zzzaikin.MedicinesAtHome.Integration.Medicines.Configuration;
 
@@ -14,8 +14,8 @@ namespace Zzzaikin.MedicinesAtHome.Integration
         public MedicinesIntegrator(IMedicinesIntegrationSource medicinesIntegrationSource, 
             MedicinesIntegrationConfiguration medicinesIntegrationConfiguration) 
         {
-            ZzzArgument.NotNull(medicinesIntegrationSource, nameof(medicinesIntegrationSource));
-            ZzzArgument.NotNull(medicinesIntegrationConfiguration, nameof(medicinesIntegrationConfiguration));
+            Argument.NotNull(medicinesIntegrationSource, nameof(medicinesIntegrationSource));
+            Argument.NotNull(medicinesIntegrationConfiguration, nameof(medicinesIntegrationConfiguration));
 
             _medicinesIntegrationSource = medicinesIntegrationSource;
             _medicinesIntegrationConfiguration = medicinesIntegrationConfiguration;

@@ -1,6 +1,6 @@
 using HtmlAgilityPack;
+using Zzzaikin.Common;
 using Zzzaikin.MedicinesAtHome.Models;
-using ZzzArgument = Zzzaikin.Argument.Argument;
 using Zzzaikin.MedicinesAtHome.Integration.Medicines;
 
 namespace Zzzaikin.MedicinesAtHome.Integration
@@ -17,8 +17,8 @@ namespace Zzzaikin.MedicinesAtHome.Integration
         public async Task<IEnumerable<Medicine>> GetMedicinesTask(string medicinesNamesAndLinksUrl,
             string pathToMedicinesNamesAndLinksNodes)
         {
-            ZzzArgument.NotNullOrEmpty(medicinesNamesAndLinksUrl, nameof(medicinesNamesAndLinksUrl));
-            ZzzArgument.NotNullOrEmpty(pathToMedicinesNamesAndLinksNodes, nameof(pathToMedicinesNamesAndLinksNodes));
+            Argument.NotNullOrEmpty(medicinesNamesAndLinksUrl, nameof(medicinesNamesAndLinksUrl));
+            Argument.NotNullOrEmpty(pathToMedicinesNamesAndLinksNodes, nameof(pathToMedicinesNamesAndLinksNodes));
 
             var document = await GetDocumentAsync(medicinesNamesAndLinksUrl);
 
